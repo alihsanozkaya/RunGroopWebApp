@@ -12,7 +12,7 @@ namespace RunGroopWebApp.Models
         public string Description { get; set; }
         public string Image { get; set; }
         [ForeignKey("Address")]
-        public int AddressOd { get; set; }
+        public int AddressId { get; set; }
         public Address Address { get; set; }
         public RaceCategory RaceCategory { get; set; }
         public string? AppUserId { get; set; }

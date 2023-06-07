@@ -2,6 +2,7 @@
 using RunGroopWebApp.Data;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
+using System.Diagnostics;
 
 namespace RunGroopWebApp.Repository
 {
@@ -30,9 +31,9 @@ namespace RunGroopWebApp.Repository
             return await _context.Clubs.ToListAsync();
         }
 
-        public Task<Club> GetByIdAsync(int id)
+        public async Task<Club?> GetByIdAsync(int id)
         {
-            return _context.Clubs.FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Clubs.Include(i => i.Address).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<IEnumerable<Club>> GetClubByCity(string city)
@@ -48,7 +49,8 @@ namespace RunGroopWebApp.Repository
 
         public bool Update(Club club)
         {
-            throw new NotImplementedException();
+            _context.Update(club);
+            return Save();
         }
     }
 }
